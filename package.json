@@ -1,0 +1,25 @@
+{
+  "name": "nelvabot",
+  "version": "2.0",
+  "description": "A Discord bot for Nelva",
+  "author": "Samet Alaca <contact@samet-alaca.fr>",
+  "scripts": {
+    "start": "node nelvabot.js"
+  },
+  "main": "nelvabot.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samet-alaca/Nelvabot"
+  },
+  "bugs": {
+    "url": "https://github.com/samet-alaca/Nelvabot/issues"
+  },
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "fs": "0.0.1-security",
+    "mysql": "github:mysqljs/mysql",
+    "node-opus": "^0.2.7",
+    "plotly": "^1.0.6"
+  },
+  "license": "MIT"
+}
