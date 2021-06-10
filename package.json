@@ -1,6 +1,6 @@
 {
   "name": "nelvabot",
-  "version": "2.0",
+  "version": "2.0.0",
   "description": "A Discord bot for Nelva",
   "author": "Samet Alaca <contact@samet-alaca.fr>",
   "scripts": {
@@ -18,7 +18,6 @@
     "discord.js": "^11.4.2",
     "fs": "0.0.1-security",
     "mysql": "github:mysqljs/mysql",
-    "node-opus": "^0.2.7",
     "plotly": "^1.0.6"
   },
   "license": "MIT"
