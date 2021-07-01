@@ -861,6 +861,7 @@ Nelvabot.point = function(message, command) {
 
 Nelvabot.help = function(message, command)
 {
+    const content = message.content;
     if(content.indexOf('/help') !== -1 && length == 5)
     {
         const embed = new Discord.MessageEmbed()
