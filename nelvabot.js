@@ -180,8 +180,10 @@ Nelvabot.count = function(message) {
         value.mess_count++;
         value.char_count += message.content.length;
     } else {
-        let member = message.guild.members.find('id', message.author.id);
-        Data.set(message.author.id, { mess_count: 1, char_count: message.content.length });
+        if(message.guild) {
+            let member = message.guild.members.find('id', message.author.id);
+            Data.set(message.author.id, { mess_count: 1, char_count: message.content.length });
+        }
     }
 
     if(up = Data.get('update')) {
