@@ -46,7 +46,6 @@ Nelvabot.on('message', (message) => {
             case 'stats': Nelvabot.stats(message.channel, command, message.mentions); break;
             case 'notify': Nelvabot.notify(message, command, message.content.slice(7)); break;
             case 'usage': Nelvabot.usage(message.channel, command); break;
-            case 'help': Nelvabot.help(message.channel); break;
             case 'bestiaire': Nelvabot.bestiaire(message, command); break;
             case 'find': Nelvabot.find(message, command); break;
             case 'reset': Nelvabot.stopTyping(message.channel); break;
@@ -767,14 +766,6 @@ Nelvabot.usage = function(channel, command) {
     } catch(e) {
         channel.send("Impossible de charger l'aide pour cette commande...");
     }
-    channel.stopTyping();
-};
-
-Nelvabot.help = function(channel) {
-    if(Typing) {
-        channel.startTyping();
-    }
-    channel.send("https://github.com/samet-alaca/nelvabot/blob/master/readme.md");
     channel.stopTyping();
 };
 
