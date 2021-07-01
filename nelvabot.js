@@ -844,7 +844,11 @@ Nelvabot.point = function(message, command) {
 
                         pointsToValidate.set(id, output);
 
-                        chef.send(output);
+                        chef.send(output)
+                            .then(message => {
+                                message.react(':thumbsup:');
+                                message.react(':thumbsdown:');
+                            });
                     }
                 }
             });
