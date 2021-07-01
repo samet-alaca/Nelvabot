@@ -65,8 +65,7 @@ Nelvabot.on('message', (message) => {
 
 Nelvabot.on('messageReactionAdd', (reaction, user) => {
     const message = reaction.message.content.split('\n');
-    console.log(user.id);
-    if(reaction.message.author.id === '464085305453182986' && message.length > 4 && message[4].startsWith('POINTID-')) {
+    if(user.id !== '464085305453182986' && reaction.message.author.id === '464085305453182986' && message.length > 4 && message[4].startsWith('POINTID-')) {
         const id = message[4].split('POINTID-')[1];
         if(pointsToValidate.has(id)) {
             const point = pointsToValidate.get(id);
