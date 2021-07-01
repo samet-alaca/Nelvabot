@@ -6,16 +6,17 @@ fs = require('fs'),
 Nelvabot = new Discord.Client(),
 Data = new Map(),
 Connection = Mysql.createConnection({
-    host     : config.host,
-    user     : config.user,
-    password: config.password,
-    database : config.database,
+    host     : config.database.host,
+    user     : config.database.user,
+    password: config.database.password,
+    database : config.database.name,
     supportBigNumbers: true,
     bigNumberStrings: true
 }),
 Typing = false,
 Prefix = '/';
 
+const pointsToValidate = new Map();
 const child = require('child_process');
 
 Nelvabot.login(config.discord.token);
@@ -63,8 +64,32 @@ Nelvabot.on('message', (message) => {
 });
 
 Nelvabot.on('messageReactionAdd', (reaction, user) => {
-    // user.send(reaction.emoji.toString());
-    // console.log(user.username);
+    const message = reaction.message.content.split('\n');
+    if(reaction.message.author.id === '464085305453182986' && message.length > 4 && message[4].startsWith('POINTID-')) {
+        const id = message[4].split('POINTID-')[1];
+        if(pointsToValidate.has(id)) {
+            const point = pointsToValidate.get(id);
+            const lines = point.split('\n');
+            const pseudo = lines[0].split('Pseudo : ')[1];
+            const type = lines[1].split('Type : ')[1];
+            const value = lines[2].split('Valeur : ')[1];
+            const comment = lines[3].split('Message : ')[1];
+
+            if(reaction.emoji.toString() === '👍') {
+                Connection.query('INSERT INTO points (pseudo, points, type, message) VALUES (?, ?, ?, ?)', [pseudo, value, type, comment], (error, results) => {
+                    if(!error) {
+                        user.send('Validé !');
+                    } else {
+                        console.log(error);
+                    }
+                });
+            } else {
+                user.send('Refusé !');
+            }
+
+            pointsToValidate.delete(id);
+        }
+    }
 });
 
 let init = false;
@@ -814,23 +839,19 @@ Nelvabot.point = function(message, command) {
                 } else { 
                     if(results !== undefined && results.length > 0) {
                         const chef = message.guild.members.array().find(e => e.id === results[0].chef_id);
+                        const id = (Math.random() * Date.now()).toString(36);
+
                         let output = 'Pseudo : ' + pseudo + '\n';
                         output += 'Type : ' + type + '\n';
                         output += 'Valeur : ' + value + '\n';
                         output += 'Message : ' + comment + '\n';
+                        output += 'POINTID-' + id + '\n';
                         output += 'Valider avec :thumbsup:, refuser avec :thumbsdown:';
+
+                        pointsToValidate.set(id, output);
 
                         chef.send(output);
                     }
-                }
-            });
-
-
-            Connection.query('INSERT INTO points (pseudo, points, type, message) VALUES (?, ?, ?, ?)', [pseudo, value, type, comment], (error, results) => {
-                if(!error) {
-                    
-                } else {
-                    console.log(error);
                 }
             });
         }
