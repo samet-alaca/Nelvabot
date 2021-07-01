@@ -55,6 +55,7 @@ Nelvabot.on('message', (message) => {
             case 'channel': Nelvabot.channel(message, command); break;
             case 'process': Nelvabot.process(message, command); break;
             case 'point': Nelvabot.point(message, command); break;
+            case 'help' : Nelvabot.help(message, command); break;
         }
     } else {
         if(!message.author.bot) {
@@ -857,3 +858,57 @@ Nelvabot.point = function(message, command) {
         }
     }
 }
+
+Nelvabot.help = function(message, command)
+{
+    if(content.indexOf('/help') !== -1 && length == 5)
+    {
+        const embed = new Discord.MessageEmbed()
+        .setColor('#007EC7')
+        .setTitle("Page d'aide NelvaBot")
+        .addFields(
+            { name: 'Bestiaire', value: '`/bestiaire -find=`', inline: true },
+            { name: '', value: '`/bestiaire -pseudo= -message=`', inline: true },
+            { name: '', value: '`/bestiaire -delete=`', inline: true },
+            { name: '\u200b', value: '\u200b'},
+            { name: "Points de maison", value: '`/point -type= -valeur= -message=`'},
+        )
+        .setFooter('Demandé par', + ClientUser.username, ClientUser.avatarURL)
+
+        message.channel.send({embed});        
+    }
+    if(content.indexOf('bestiaire') !== -1)
+    {
+        const embed = new DiscordMessageEmbed()
+        .setColor('#007EC7')
+        .setTitle("Bestiaire")
+        .setDescription('`/bestiaire`')
+        .addFields(
+            { name: 'Ajouter un message', value: '`-pseudo=<pseudo du joueur>\n-message=<message>`' },
+            { name: '\u200b', value: '\u200b'},
+            { name: 'Supprimer un message', value: '`-delete=<ID du message>`' },
+            { name: '\u200b', value: '\u200b'},
+            { name: "Points de maisonTrouver tous les messages pour un joueur", value: '`-find=<pseudo du joueur>`'},
+            { name: '\u200b', value: '\u200b'},
+            { name: 'Exemples', value: '`/bestiaire -pseudo=Samet -message=Test\n/bestiaire -delete=13\n/bestiaire -find=RedClash\n/bestiaire -find=*`' },
+        )
+        .setFooter('Demandé par', + ClientUser.username, ClientUser.avatarURL)
+
+        message.channel.send({embed});
+    }
+    if(content.indexOf('point') !== -1)
+    {
+        const embed = new DiscordMessageEmbed()
+        .setColor('#007EC7')
+        .setTitle("Points de maison")
+        .setDescription('`/point`')
+        .addFields(
+            { name: 'Donner des points', value: '`-pseudo=<pseudo du joueur> -type=<type de point> -valeur=<nombre de points> -message=<justification>`' },
+            { name: '\u200b', value: '\u200b'},
+            { name: 'Exemples', value: '`/point -pseudo=Pepprer -type=Vaillance -valeur=10 -message=Combat contre un gmeur`' },
+        )
+        .setFooter('Demandé par', + ClientUser.username, ClientUser.avatarURL)
+
+        message.channel.send({embed});
+    }
+}   
