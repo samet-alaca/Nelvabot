@@ -846,8 +846,8 @@ Nelvabot.point = function(message, command) {
 
                         chef.send(output)
                             .then(message => {
-                                message.react(':thumbsup:');
-                                message.react(':thumbsdown:');
+                                message.react('👍');
+                                message.react('👎');
                             });
                     }
                 }
