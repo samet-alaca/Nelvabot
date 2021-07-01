@@ -853,7 +853,7 @@ Nelvabot.point = function(message, command) {
 Nelvabot.help = function(message, command)
 {
     const content = message.content;
-    if(content.indexOf('/help') !== -1 && length == 5)
+    if(content.indexOf('/help') !== -1 && content.length == 5)
     {
         const embed = new Discord.MessageEmbed()
         .setColor('#007EC7')
@@ -865,7 +865,7 @@ Nelvabot.help = function(message, command)
             { name: '\u200b', value: '\u200b'},
             { name: "Points de maison", value: '`/point -type= -valeur= -message=`'},
         )
-        .setFooter('Demandé par', + ClientUser.username, ClientUser.avatarURL)
+        .setFooter('Demandé par' + message.author.username, message.author.displayAvatarURL())
 
         message.channel.send({embed});        
     }
@@ -884,7 +884,7 @@ Nelvabot.help = function(message, command)
             { name: '\u200b', value: '\u200b'},
             { name: 'Exemples', value: '`/bestiaire -pseudo=Samet -message=Test\n/bestiaire -delete=13\n/bestiaire -find=RedClash\n/bestiaire -find=*`' },
         )
-        .setFooter('Demandé par', + ClientUser.username, ClientUser.avatarURL)
+        .setFooter('Demandé par' + message.author.username, message.author.displayAvatarURL())
 
         message.channel.send({embed});
     }
@@ -899,7 +899,7 @@ Nelvabot.help = function(message, command)
             { name: '\u200b', value: '\u200b'},
             { name: 'Exemples', value: '`/point -pseudo=Pepprer -type=Vaillance -valeur=10 -message=Combat contre un gmeur`' },
         )
-        .setFooter('Demandé par', + ClientUser.username, ClientUser.avatarURL)
+        .setFooter('Demandé par' + message.author.username, message.author.displayAvatarURL())
 
         message.channel.send({embed});
     }
